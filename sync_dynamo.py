@@ -4,7 +4,6 @@ import requests as rqs
 url = ""
 savePath = os.path.expanduser
 file = urllib.request.urlretrieve(url, savePath)
-from subprocess import Popen
-Popen(r'explorer /select,"{}"'.format(savePath))
+file = open(savePath+"/test.txt","w")
 
 
