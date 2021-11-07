@@ -1,5 +1,4 @@
 import mysql.connector
-import json
 
 """
 host="localhost"
@@ -9,9 +8,9 @@ database="plugin"
 """
 class Database:
 
-    def __init__(self, host="localhost", user="root", password="", database="kea_plugin"):
+    def __init__(self, host="localhost", user="root", password="", database="plugin"):
         self.mydb = mysql.connector.connect(host=host,user=user,password=password, database=database)
-        self.mycursor = mydb.cursor()
+        self.mycursor = self.mydb.cursor()
     
     def select(self, table, rows):
         sql = "SELECT () FROM ({})".format(rows, table)
