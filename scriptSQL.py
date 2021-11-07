@@ -1,5 +1,6 @@
 import mysql.connector
 import json
+
 """
 host="localhost"
 user="root"
@@ -12,14 +13,12 @@ class Database:
         self.mydb = mysql.connector.connect(host=host,user=user,password=password, database=database)
         self.mycursor = mydb.cursor()
     
-    #TODO finish this functions, maybe table parameter could be tuple or smth
-    def select(self, table, val):
-        sql = "SELECT (%s, %s) FROM ({})".format(table)
-        self.mycursor.execute(sql, val)
+    def select(self, table, rows):
+        sql = "SELECT () FROM ({})".format(rows, table)
+        self.mycursor.execute(sql)
         self.mydb.commit()
 
-    def insert(self, table, val) :
-        sql = "INSERT INTO ({}) VALUES (%s, %s)".format(table)
+    def insert(self, table, columns, val) :
+        sql = "INSERT INTO {} ({}) VALUES (%s, %s)".format(table, columns)
         self.mycursor.execute(sql, val)
         return self.mycursor.fetchall()
-        
