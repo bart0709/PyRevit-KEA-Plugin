@@ -16,6 +16,7 @@ class Database:
         sql = "SELECT () FROM ({})".format(rows, table)
         self.mycursor.execute(sql)
         self.mydb.commit()
+        return self.mycursor.fetchall()
 
     def insert(self, table, columns, val) :
         sql = "INSERT INTO {} ({}) VALUES (%s, %s)".format(table, columns)
@@ -23,7 +24,7 @@ class Database:
         return self.mycursor.fetchall()
 
     def update(self, table, column1, column2, condition, val) :
-        sql = "UPDATE {} SET {} = {} WHERE {} = {}".format(table, column1, condition, val)
+        sql = "UPDATE {} SET {} = {} WHERE {} = {}".format(table, column1, val, column2, condition)
         self.mycursor.execute(sql)
         self.mydb.commit()
         return self.mycursor.fetchall()
